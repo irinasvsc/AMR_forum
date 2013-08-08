@@ -14,55 +14,99 @@ There is a new frame available, called <code>have-org-role-91</code>, which shou
 
 Below you can find a few examples, but you should also check out the frame in the tool:
 
-```
+```lisp
 (h / have-org-role-91
   :ARG0 (p / person :name (n / name :op1 "Obama"))
-	:ARG1 (c/ country: name (n2/ name :op2 “US”))
- 	:ARG2 (p2 / president))
+  :ARG1 (c/ country: name (n2/ name :op2 “US”))
+  :ARG2 (p2 / president))
+```  
 
-US President Obama
+<em>US President Obama</em>
 
+
+```lisp
 (h / have-org-role-91
   :ARG0 (c / country :name (n / name :op1 "Spain"))
   :ARG1 (m / military :name (n2 / name :op1 "NATO"))
   :ARG2 (m2 / member))
+```
 
-Spain is a member of NATO.
+<em>Spain is a member of NATO.</em>
 
 
-•	Expressing mathematical calculations using equal-01
+
+•  Expressing mathematical calculations using <code>equal-01</code>
+
 If you have sentences containing mathematical calculation, you can use the frame equal-01, plus the concepts sum-of and product-of:
- 
-Three and two make five.
- 
-The sixth planet was ten times larger than the last one.
 
-•	Reification of the role :quant
-The reified version of :quant is have-quant-91.
+```lisp
+(e / equal-01
+  :ARG1 5
+  :ARG2 (s / sum-of
+          :op1 3
+          :op2 2))
+```
 
-•	Annotation of epistemic "must"
-There are cases in which “must” doesn’t convey obligation or duty, rather it is used to make an inference based on an existing state, like in the sentence: “John isn't here, he must be sick”. In such cases, you should use the frame infer-01, as in the example below:
-    (i / infer-01
+<em>Three and two make five.</em>
+
+```lisp
+(e / equal-01
+  :ARG1 (s / size
+          :poss (p / planet
+                  :ord (o / ordinal-entity
+                         :value 6)))
+  :ARG2 (p2 / product-of
+          :op1 10
+          :op2 (s2 / size
+                 :poss (p3 / planet
+                         :mod (l / last)))))
+```                         
+ 
+<em>The sixth planet was ten times larger than the last one.</em>
+
+
+•  Reification of the role <code>:quant</code>
+
+The reified version of :quant is <code>have-quant-91</code>.
+
+
+•  Annotation of epistemic "<b>must</b>"
+
+There are cases in which “must” doesn’t convey obligation or duty, rather it is used to make an inference based on an existing state. In such cases, you should use the frame infer-01, as in the example below:
+
+```lisp
+(i / infer-01
       :ARG1 (s / sick
                  :domain p)
       :ARG2 (b / be-located-at-91 :polarity -
                  :ARG1 (p / person :name (n / name :op1 "John"))
                  :ARG2 (h / here)))
+```
 
-•	Annotation of location names within names of entities
-This is usually an issue when references to a certain facility are made using the name of the city/region they are located in (so-called cases of metonymy).
- If the actual concept of the facility is mentioned together with the location in which it is based, then the NE is annotated as the location:
-          :instrument(b / build-01
-                    :ARG0 c
-                    :ARG1 (s2 / station
-                            :poss c2
-                            :ARG0-of (p / power-01
-                                       :mod (a / atom))
-                            :location (c3 / city
-                                        :name (n6 / name
-                                                :op1 "Bushehr")))))
-Ecological organization Greenpeace stated on June 21, 2002 that Russia helped Iran to develop nuclear weapons by building Iran's Bushehr atomic power station.
+<em>“John isn't here, he must be sick.”</em>
+
+
+•  Annotation of location (city, region) names within names of facilities or other entities
+
+This is usually an issue when references to a certain facility are made using the name of the city/region they are located in (so-called cases of metonymy). If the actual concept of the facility is mentioned together with the location in which it is based, then the NE is annotated as the location:
+          
+```lisp
+:instrument(b / build-01
+	:ARG0 c
+        :ARG1 (s2 / station
+                 :poss c2
+                 :mod (p / power
+                        :mod (a / atom))
+                 :location (c3 / city
+                        :name (n6 / name
+                               :op1 "Bushehr")))))
+```                               
+                               
+<em>Ecological organization Greenpeace stated on June 21, 2002 that Russia helped Iran to develop nuclear weapons by building Iran's Bushehr atomic power station.</em>
+
 If the name of the location is used to refer to the facility/object itself, then you should annotate only the facility, with the given name:
+
+```lisp
 (s / say-01
   :ARG0 (e / expert)
   :ARG1 (p / possible
@@ -70,18 +114,26 @@ If the name of the location is used to refer to the facility/object itself, then
                     :ARG1 (f / facility
                             :name (n / name
                                     :op1 "Bushehr"))
-                    :time (d / date-entity
-                            :year 2003
-                            :month 9
-                            :mod (e2 / early)))
+                    :time (e2 / early
+                    	    :op1 (d / date-entity
+                                    :year 2003
+                            	    :month 9)))
           :prep-in (t / theory)))
-Experts say Bushehr could in theory become operational as early as September 2003.
+```          
+          
+<em>Experts say Bushehr could in theory become operational as early as September 2003.</em>
 
-•	Annotation of “mass destruction”
-In phrases like “weapons of mass destruction”, “mass” should be annotated using the role :degree under the predicate.
 
-•	Use of monetary-quantity as generic entity type
-Whenever you have such concepts like “ad spending”, “the price for …”, you can use monetary-quantity, to which you then link the predicate using the appropriate arguments, instead of using the generic “thing”.
+•  Annotation of “<b>mass destruction</b>”
+
+In phrases like “weapons of mass destruction”, “mass” should be annotated using the role <code>:degree</code> under the predicate.
+
+
+•  Use of <code>monetary-quantity</code> as generic entity type
+
+Whenever you have such concepts as “<b>ad spending</b>”, “<b>the price for …</b>”, you can use monetary-quantity, to which you then link the predicate using the appropriate arguments, instead of using the generic “thing”.
+ 
+```lisp 
  (b / become-01
             :ARG1 (p2 / plan
                   :ARG0-of (g / give-01
@@ -100,11 +152,17 @@ Whenever you have such concepts like “ad spending”, “the price for …”,
                                     :op2 (i / increase-01
                                           :ARG0 c7
                                           :ARG1 m3)))))
-Plans that give advertisers discounts for maintaining or increasing ad spending have become permanent fixtures at the news weeklies.
+```
 
-•	Annotation of parentheticals with relevant content
-There are cases when the information enclosed within parentheses actually adds content to the sentence, as opposed to conversion of monetary-quantity and abbreviations. In such cases, the content is annotated as any other concept outside the brackets. If, however, the content explains the phrase preceding it, then you should use a recently introduced role, :meaning (reification: mean-01), as in the sentence below:
-     (r / reply-01
+<em>Plans that give advertisers discounts for maintaining or increasing ad spending have become permanent fixtures at the news weeklies.</em>
+
+
+•  Annotation of parentheticals with relevant content
+
+There are cases when the information enclosed within parentheses actually adds content to the sentence, as opposed to conversion of monetary-quantity and abbreviations. In such cases, the content is annotated as any other concept outside the brackets. If, however, the content explains the phrase preceding it, then you should use a recently introduced role, <code>:meaning</code> (reification: <code>mean-01</code>), as in the sentence below:
+
+```lisp
+    (r / reply-01
            :ARG0 (h / he)
            :ARG1 (s / she)
            :ARG2 (f / flame
@@ -112,31 +170,32 @@ There are cases when the information enclosed within parentheses actually adds c
                        :ARG1 (e / email
                              :ARG0-of (i / insult-01)
                              :domain (h2 / hostile)))))
+```
 
-"He replied to her with a flame (a hostile and insulting email)."
-
-•	Annotation of ordinals
+<em>"He replied to her with a flame (a hostile and insulting email)."</em>
 
 
-If you have ordinals like “first”, “second” etc., you should use the new :ord role (you will find more info in the Roles window, including examples)
+•  Annotation of ordinals
 
+If you have ordinals like “first”, “second” etc., you should use the new <code>:ord</code> role (you will find more info in the Roles window, including examples)
+
+```lisp
      (v / visit-01
            :ARG0 (w / we)
            :ord (o / ordinal-entity :value 1
                  :range (t / temporal-quantity :quant 10
                        :unit (y / year))))
+```
 
-our first visit in 10 years
+<em>our first visit in 10 years</em>
 
 
-
-
-•	Annotation of “global”
+•  Annotation of “<b>global</b>”
 
 “global” should be annotated as “globe”
 
 
-•	Annotation of “cross-border”
+•  Annotation of “<b>cross-border</b>”
 
 If you have phrases like “cross-border”, “cross-straits”, you should break down the phrase and use the frame cross-02.
 
