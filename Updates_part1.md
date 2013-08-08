@@ -15,15 +15,15 @@ These changes are also mentioned in the offline file <em>AMR guidelines updates<
 
 ```lisp
 (s / sleep-01
-:arg0 (n / no-one))
+  :arg0 (n / no-one))
 ```
 
 <em>no one is sleeping</em>
 
 ```lisp
 (n / nobody
-:arg1-of (l / like-01
-:arg0 (i / i)))
+  :arg1-of (l / like-01
+    :arg0 (i / i)))
 ```
 
 <em>there is nobody that i like</em>
