@@ -17,7 +17,7 @@ Below you can find a few examples, but you should also check out the frame in th
 ```lisp
 (h / have-org-role-91
   :ARG0 (p / person :name (n / name :op1 "Obama"))
-  :ARG1 (c/ country: name (n2/ name :op2 “US”))
+  :ARG1 (c/ country: name (n2/ name :op2 "US"))
   :ARG2 (p2 / president))
 ```  
 
@@ -93,7 +93,7 @@ This is usually an issue when references to a certain facility are made using th
 ```lisp
 :instrument(b / build-01
 	:ARG0 c
-        :ARG1 (s2 / station
+	:ARG1 (s2 / station
                  :poss c2
                  :mod (p / power
                         :mod (a / atom))
@@ -195,46 +195,56 @@ If you have ordinals like “first”, “second” etc., you should use the new
 “global” should be annotated as “globe”
 
 
+
 •  Annotation of “<b>cross-border</b>”
 
-If you have phrases like “cross-border”, “cross-straits”, you should break down the phrase and use the frame cross-02.
+If you have phrases like “cross-border”, “cross-straits”, you should break down the phrase and use the frame <b>cross-02</b>.
 
 
-•	Annotation of “approximately”
+•  Annotation of “<b>approximately</b>”
 
 In the end, it has been decided that we should stick to “approximately”, followed by :op1, instead of using approximate-01, as in the example below:
 
+```lisp
 (c / cost-01
       :ARG1 (p / project)
       :ARG2 (a / approximately
             :op1 (m / monetary-quantity :quant 51000000000
                   :unit (r / rupee))))
+```
 
-The project will cost approximately 51 billion rupees.
+<em>The project will cost approximately 51 billion rupees.</em>
 
 
-•	Annotation of "or" as an alternative way of expressing parenthetical equivalence
+•  Annotation of "<b>or</b>" as an alternative way of expressing parenthetical equivalence
 
-If you come across sentences like “The deal states Iran will supply 5.5 billion cubic meters or 194 trillion cubic feet of gas annually from 2011.”, in which the entity after “or” (in this case “194 trillion cubic feet”) doesn’t bring any extra meaning, then you should annotate just the first element, the one preceding the “or” (similar to the approach on semantically irrelevant parenthetical conversions).
+If you come across sentences like <em>“The deal states Iran will supply 5.5 billion cubic meters or 194 trillion cubic feet of gas annually from 2011”</em>, in which the entity after “or” (in this case “194 trillion cubic feet”) doesn’t bring any extra meaning, then you should annotate just the first element, the one preceding the “or” (similar to the approach on semantically irrelevant parenthetical conversions).
 
-•	Annotation of ideologies and sports
-If you come across sports/martial arts like “tai chi”, “meihuazhuang” or names of movement/ideologies like Marxism, Maoism etc., then you should annotate them as common nouns.
-•	Annotation of non-exact regions, identified based on cardinal points
 
-If you have phrases like “southern Philippines”, in which case the phrase cannot be annotated as a single named entity (as is the case with “Southern France” for example), then you should use “south”, “east” etc., :part-of country_concept, as in the sentence below:
+•  Annotation of ideologies and sports
 
+If you come across sports/martial arts like “<b>tai chi</b>”, “<b>meihuazhuang</b>” or names of movement/ideologies like <b>Marxism</b>, <b>Maoism</b> etc., then you should annotate them as common nouns.
+
+
+•  Annotation of non-exact regions, identified based on cardinal points
+
+If you have phrases like “<b>southern Philippines</b>”, in which case the phrase cannot be annotated as a single named entity (as is the case with “Southern France”, for example), then you should use “south”, “east” etc., :part-of country_concept, as in the sentence below:
+
+```lisp
 (r / remove-01
   :ARG1 …
   :ARG2 (s / south
           :part-of c2))
+```          
 
-U.S. military trainers are aiding officials in the Philippines in attempting to remove Islamic guerrillas from the southern Philippines.
+<em>U.S. military trainers are aiding officials in the Philippines in attempting to remove Islamic guerrillas from the southern Philippines.</em>
 
 
-•	Annotation of “therefore”.
+•  Annotation of “<b>therefore</b>”
 
-“therefore” should be annotated using either "cause-01" or "infer-01", depending on the case at hand. Please see the sentence below:
+“therefore” should be annotated using either <code>cause-01</code> or <code>infer-01</code>, depending on the case at hand. Please see the sentence below:
 
+```lisp
 (s / state-01
       :ARG0 (p / person :name (n / name :op1 "Ali" :op2 "Asghar" :op3 "Soltanieh"))
       :ARG1 (i / infer-01
@@ -250,15 +260,16 @@ U.S. military trainers are aiding officials in the Philippines in attempting to 
                   :ARG1 (a / activity
                         :mod (n3 / nucleus)
                         :mod (s3 / strict :polarity -)))))
+```                        
 
-Ali Asghar SOLTANIEH stated that the alleged alleged Iranian weaponization studies covered activities that were not strictly nuclear and therefore did not fall under International Atomic Energy Agency jurisdiction.
+<em>Ali Asghar SOLTANIEH stated that the alleged alleged Iranian weaponization studies covered activities that were not strictly nuclear and therefore did not fall under International Atomic Energy Agency jurisdiction.</em>
 
 
-•	Annotation of “domestic”
+•  Annotation of “<b>domestic</b>”
 
 “domestic” should be annotated as such, the tool suggestion that you should use “dwelling“ should be ignored.
 
 
-•	Choosing :age over :duration
+•  Choosing <code>:age</code> over <code>:duration</code>
 
-Whenever you have an “N-year-old”/”N years old” construction, you should also use :age (or its reification), instead of :duration (even for building, laws etc.)
+Whenever you have an “N-year-old”/”N years old” construction, you should also use <code>:age</code> (or its reification), instead of <code>:duration</code> (even for building, laws etc.)
