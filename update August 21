@@ -1,0 +1,20 @@
+Annotating alternatives (x/y)
+-	“and/or”
+You should use the concept “and-or” followed by 2 :ops whenever you can find in the sentence the alternative “and/or”
+
+e.g. 
+•	the war on Iraq and/or Afghanistan
+•	Americans, especially Republican Americans, have largely left issues of racism and/or stereotypical prejudice and bigotry well behind them.
+
+-	“slash” concept
+
+You should use a new “slash” concept followed by 2 :ops whenever you can find in the text 2 alternatives of the type “x/y”:
+
+ e.g. 
+•  The Chinese are going to stab us in the back. if we don't turn away from Iraq and Afghanistan to rebuild/recover our strength. Where they're financially and militarily, bleeding us to death.
+•  Have'nt goverments/corporations turned their populus trough a monetary reward/tax system into working slaves anyway?
+•  while she/he gave testimony
+(t / testify-01
+    :arg0 (x / slash
+                 :op1 (h / he)
+                 :op2 (s / she)))
